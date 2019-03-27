@@ -1,12 +1,13 @@
-#Roadmap for three week ahead :
+# Roadmap for three week ahead :
 
-##Porsea-Cli :
+## Porsea-Cli :
 
-###Create command for initialize project
-####Sub:
+### Create command for initialize project
 
-- 1. Creating base file package.json include porsea as dependency []
-- 2. Creating base file .gitignore (currenlty ignore node_modules) []
-- 3. Creating base file config, to override configuration inside porsea project (empty configuration) []
-- 4. Creating folder pages, assets, components inside project name folder (empty file) []
-- 5. Creating example pages inside pages folder, and make it as initial route []
+Sub:
+
+- [x] Creating base file package.json include porsea as dependency
+- [x] Creating base file .gitignore (currenlty ignore node_modules)
+- [] Creating base file config, to override configuration inside porsea project (empty configuration)
+- [x] Creating folder pages, assets, components inside project name folder (empty file)
+- [] Creating example pages inside pages folder, and make it as initial route
