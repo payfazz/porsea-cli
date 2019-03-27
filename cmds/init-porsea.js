@@ -1,30 +1,43 @@
 const fs = require("fs-extra");
+const path = require("path");
 const packageJsonTemplate = require("../templates/package.json");
 const gitignoreTemplate = require("../templates/gitignore");
 
 const initPorsea = argv => {
   const { projectName } = argv;
   const { cwd } = process;
-  const projectPath = `${cwd()}/${projectName}`;
+  const projectTargetPath = `${cwd()}/${projectName}`;
+  const pagesTargetPath = `${projectTargetPath}/src`;
 
-  if (fs.pathExistsSync(projectPath)) {
+  if (fs.pathExistsSync(projectTargetPath)) {
     console.log("Folder already exists!");
     return;
   }
 
-  fs.mkdirSync(projectPath);
-  console.log("Creating a New Project Folder: " + projectName + " in " + cwd());
+  fs.mkdirSync(projectTargetPath);
+  console.log(
+    "Created a New Project Folder: " +
+      "'" +
+      projectName +
+      "'" +
+      " in '" +
+      cwd() +
+      "'"
+  );
 
   fs.writeFileSync(
-    `${projectPath}/package.json`,
+    `${projectTargetPath}/package.json`,
     JSON.stringify(
       packageJsonTemplate({ name: projectName, description: projectName })
     )
   );
-  console.log("Creating package.json");
+  console.log("Created 'package.json'");
 
-  fs.writeFileSync(`${projectPath}/.gitignore`, gitignoreTemplate());
-  console.log("Creating .gitignore");
+  fs.writeFileSync(`${projectTargetPath}/.gitignore`, gitignoreTemplate());
+  console.log("Created '.gitignore'");
+
+  fs.copy(path.join(__dirname, "../templates/src"), pagesTargetPath);
+  console.log("Created Folder 'src'");
 };
 
 module.exports = initPorsea;
