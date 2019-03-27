@@ -1,0 +1,17 @@
+{
+  "name": "porsea-cli-init",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "porsea-cli": "./index.js"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "Cashfazz",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "yargs": "^13.2.2"
+  }
+}
