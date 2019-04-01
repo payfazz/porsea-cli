@@ -1,8 +1,6 @@
-# Roadmap for three week ahead :
+# Porsea-Cli :
 
-## Porsea-Cli :
-
-### Create command for initialize project
+## Create command for initialize project
 
 Sub:
 
