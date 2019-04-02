@@ -3,12 +3,12 @@ module.exports = ({ name, description }) => ({
   version: "1.0.0",
   description,
   scripts: {
-    test: 'echo "Error: no test specified" && exit 1'
+    start: "porsea start"
   },
   keywords: [],
   author: "",
   license: "MIT",
   dependencies: {
-    porsea: "file:/home/willy/Desktop/porsea"
+    porsea: "file:../../porsea-0.0.1.tgz"
   }
 });
