@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import Welcome from "../../components/welcome";
+import "./App.css";
 
 class App extends Component {
   static navigationOptions() {

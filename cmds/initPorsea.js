@@ -1,6 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
-const packageJsonTemplate = require("../templates/package.json");
+const packageJsonTemplate = require("../templates/package.json.js");
 const gitignoreTemplate = require("../templates/gitignore");
 
 const initPorsea = argv => {

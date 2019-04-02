@@ -1,3 +1,3 @@
-const initPorsea = require("./init-porsea");
+const initPorsea = require("./initPorsea");
 
 module.exports = { initPorsea };
