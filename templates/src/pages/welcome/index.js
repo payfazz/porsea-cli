@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Welcome from "../../components/welcome";
-import "./App.css";
+import Welcome from "Components/welcome";
+import "./welcome.scss";
 
 class App extends Component {
   static navigationOptions() {

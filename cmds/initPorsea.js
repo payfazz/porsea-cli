@@ -36,7 +36,12 @@ const initPorsea = argv => {
   fs.writeFileSync(`${projectTargetPath}/.gitignore`, gitignoreTemplate());
   console.log("Created '.gitignore'");
 
-  fs.copy(path.join(__dirname, "../templates/src"), pagesTargetPath);
+  fs.copyFileSync(
+    path.join(__dirname, "../templates/porsea.config.js"),
+    projectTargetPath + "/porsea.config.js"
+  );
+
+  fs.copySync(path.join(__dirname, "../templates/src"), pagesTargetPath);
   console.log("Created Folder 'src'");
 };
 
