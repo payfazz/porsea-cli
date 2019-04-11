@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
-const packageJsonTemplate = require("../templates/package.json.js");
-const gitignoreTemplate = require("../templates/gitignore");
+const packageJsonTemplate = require("../templates/projectTemplate/package.json.js");
+const gitignoreTemplate = require("../templates/projectTemplate/gitignore");
 
 const initPorsea = argv => {
   const { projectName } = argv;
@@ -37,11 +37,14 @@ const initPorsea = argv => {
   console.log("Created '.gitignore'");
 
   fs.copyFileSync(
-    path.join(__dirname, "../templates/porsea.config.js"),
+    path.join(__dirname, "../templates/projectTemplate/porsea.config.js"),
     projectTargetPath + "/porsea.config.js"
   );
 
-  fs.copySync(path.join(__dirname, "../templates/src"), pagesTargetPath);
+  fs.copySync(
+    path.join(__dirname, "../templates/projectTemplate/src"),
+    pagesTargetPath
+  );
   console.log("Created Folder 'src'");
 };
 

@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import Welcome from "Components/welcome";
-import "./welcome.scss";
 
-class App extends Component {
+class App extends React.Component {
   static navigationOptions() {
     return {
-      initialRoute: false,
-      alias: "/welcome"
+      path: "/",
+      exact: true
     };
   }
 
   render() {
-    <Welcome />;
+    return <Welcome />;
   }
 }
 
-module.exports = App;
+export default App;
