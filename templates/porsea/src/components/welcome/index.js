@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../styles/welcome.scss";
+import logo from "../../assets/easter-egg.jpeg";
 
 class Welcome extends React.Component {
   render() {
