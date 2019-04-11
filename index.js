@@ -6,7 +6,7 @@
 //
 
 const yargs = require("yargs");
-const { initPorsea, generatePage } = require("./cmds");
+const { initPorsea, createPage } = require("./cmds");
 
 const argv = yargs
   .command(
@@ -21,17 +21,17 @@ const argv = yargs
   )
   .command(
     "page <pageName>",
-    "Generate a new page",
+    "Create a new page",
     yargs => {
       yargs.positional("pageName", {
         describe: "The name of new page."
       });
     },
-    generatePage
+    createPage
   )
   .command(
     "component <componentName>",
-    "Generate a new component",
+    "Create a new component",
     yargs => {
       yargs.positional("componentName", {
         describe: "The name of new component."

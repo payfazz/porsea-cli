@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const { capitalizeFirstLetter } = require("../cmds/utils/helpers");
 
-const generatePage = argv => {
+const createPage = argv => {
   const { pageName } = argv;
   const pagesTargetPath = `${process.cwd()}/src/pages/${pageName}`;
 
@@ -23,4 +23,4 @@ const generatePage = argv => {
   });
 };
 
-module.exports = generatePage;
+module.exports = createPage;

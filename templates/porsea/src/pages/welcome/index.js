@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Welcome from "Components/welcome";
+import Welcome from "../../components/welcome";
 
 class App extends React.Component {
   static navigationOptions() {
