@@ -1,4 +1,4 @@
-const initPorsea = require("./initPorsea");
-const generatePage = require("./generatePage");
+const initPorsea = require("./init-porsea");
+const generatePage = require("./create-page");
 
 module.exports = { initPorsea, generatePage };
