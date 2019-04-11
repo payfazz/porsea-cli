@@ -1,0 +1,15 @@
+import React from "react";
+
+class pageName extends React.Component {
+  static navigationOptions() {
+    return {
+      path: "/pagePath"
+    };
+  }
+
+  render() {
+    return null
+  }
+}
+
+export default pageName;

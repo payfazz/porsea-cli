@@ -1,3 +1,4 @@
 const initPorsea = require("./initPorsea");
+const generatePage = require("./generatePage");
 
-module.exports = { initPorsea };
+module.exports = { initPorsea, generatePage };
