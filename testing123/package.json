@@ -1,0 +1,1 @@
+{"name":"testing123","version":"1.0.0","description":"testing123","scripts":{"start":"porsea start"},"keywords":[],"author":"","license":"MIT","dependencies":{"porsea":"file:../../porsea-0.0.1.tgz"}}
