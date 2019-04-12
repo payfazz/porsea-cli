@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Welcome from "../../components/welcome";
+import MyComponent from "./components/my-component";
 
 class App extends React.Component {
   static navigationOptions() {
@@ -10,7 +10,11 @@ class App extends React.Component {
   }
 
   render() {
-    return <Welcome />;
+    return (
+      <div>
+        <MyComponent />
+      </div>
+    );
   }
 }
 

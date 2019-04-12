@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import "../../styles/welcome.scss";
-import logo from "../../assets/images/easter-egg.jpeg";
+import Cashfazz from "../../../components/cashfazz";
+import "../../../styles/welcome.scss";
+import logo from "../../../assets/images/easter-egg.jpeg";
 
 class MyComponent extends React.Component {
   render() {
@@ -19,6 +20,7 @@ class MyComponent extends React.Component {
           >
             Learn React
           </a>
+          <Cashfazz />
         </header>
       </div>
     );

@@ -3,7 +3,8 @@ module.exports = ({ name, description }) => ({
   version: "1.0.0",
   description,
   scripts: {
-    start: "porsea start"
+    start: "porsea start",
+    build: "porsea build"
   },
   keywords: [],
   author: "",
