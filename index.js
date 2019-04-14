@@ -11,32 +11,34 @@ const path = require("path");
 const inquirer = require("inquirer");
 const { initPorsea, createPage, createComponent } = require("./cmds");
 
-var componentType = {
-  type: "list",
-  name: "componentType",
-  message: "Type of Component: ",
-  choices: ["Class Component", "Functional Component"]
-};
+if (fs.existsSync(path.resolve(process.cwd(), "porsea.config.js"))) {
+  var componentType = {
+    type: "list",
+    name: "componentType",
+    message: "Type of Component: ",
+    choices: ["Class Component", "Functional Component"]
+  };
 
-var componentDest = {
-  type: "list",
-  name: "componentDest",
-  message: "Create component in folder: ",
-  choices: ["src/pages", "src/components"]
-};
+  var componentDest = {
+    type: "list",
+    name: "componentDest",
+    message: "Create component in folder: ",
+    choices: ["src/pages", "src/components"]
+  };
 
-var componentPageDest = {
-  type: "list",
-  name: "componentPageDest",
-  message: "Create component in page: ",
-  choices: async () => {
-    fs.readdirSync(path.resolve(process.cwd(), "src/pages")).filter(folder =>
-      fs
-        .lstatSync(path.resolve(process.cwd(), "src/pages", folder))
-        .isDirectory()
-    );
-  }
-};
+  var componentPageDest = {
+    type: "list",
+    name: "componentPageDest",
+    message: "Create component in page: ",
+    choices: fs
+      .readdirSync(path.resolve(process.cwd(), "src/pages"))
+      .filter(folder =>
+        fs
+          .lstatSync(path.resolve(process.cwd(), "src/pages", folder))
+          .isDirectory()
+      )
+  };
+}
 
 const argv = yargs
   .command(
@@ -93,20 +95,44 @@ const argv = yargs
             componentPageDest
           );
 
-          const componentTargetPage = `${process.cwd()}/${
-            componentDest.choices[0]
-          }/${componentPageDestAnswer.componentPageDest}/components/${
-            argv.componentName
+          if (
+            !fs.pathExistsSync(
+              path.resolve(
+                process.cwd(),
+                componentDest.choices[0],
+                componentPageDestAnswer.componentPageDest,
+                "components"
+              )
+            )
+          ) {
+            fs.mkdirSync(
+              path.resolve(
+                process.cwd(),
+                componentDest.choices[0],
+                componentPageDestAnswer.componentPageDest,
+                "components"
+              )
+            );
           }
-        `;
+
+          const componentTargetPage = path.resolve(
+            process.cwd(),
+            componentDest.choices[0],
+            componentPageDestAnswer.componentPageDest,
+            "components",
+            argv.componentName
+          );
+
           createComponent(argv, componentTargetPage, basePage);
           break;
 
         case componentDest.choices[1]:
-          const componentTargetComponent = `${process.cwd()}/${
-            componentDest.choices[1]
-          }/${argv.componentName}
-        `;
+          const componentTargetComponent = path.resolve(
+            process.cwd(),
+            componentDest.choices[1],
+            argv.componentName
+          );
+
           createComponent(argv, componentTargetComponent, basePage);
           break;
 
