@@ -66,78 +66,82 @@ const argv = yargs
       describe: "The name of new component."
     });
     (async () => {
-      let componentTypeAnswer = await inquirer.prompt(componentType);
+      if (fs.existsSync(path.resolve(process.cwd(), "porsea.config.js"))) {
+        let componentTypeAnswer = await inquirer.prompt(componentType);
 
-      switch (componentTypeAnswer.componentType) {
-        case componentType.choices[0]:
-          var basePage = path.join(
-            __dirname,
-            "/templates/common/class-comp.txt"
-          );
-          break;
-
-        case componentType.choices[1]:
-          var basePage = path.join(
-            __dirname,
-            "/templates/common/func-comp.txt"
-          );
-          break;
-
-        default:
-          break;
-      }
-
-      let componentDestAnswer = await inquirer.prompt(componentDest);
-
-      switch (componentDestAnswer.componentDest) {
-        case componentDest.choices[0]:
-          let componentPageDestAnswer = await inquirer.prompt(
-            componentPageDest
-          );
-
-          if (
-            !fs.pathExistsSync(
-              path.resolve(
-                process.cwd(),
-                componentDest.choices[0],
-                componentPageDestAnswer.componentPageDest,
-                "components"
-              )
-            )
-          ) {
-            fs.mkdirSync(
-              path.resolve(
-                process.cwd(),
-                componentDest.choices[0],
-                componentPageDestAnswer.componentPageDest,
-                "components"
-              )
+        switch (componentTypeAnswer.componentType) {
+          case componentType.choices[0]:
+            var basePage = path.join(
+              __dirname,
+              "/templates/common/class-comp.txt"
             );
-          }
+            break;
 
-          const componentTargetPage = path.resolve(
-            process.cwd(),
-            componentDest.choices[0],
-            componentPageDestAnswer.componentPageDest,
-            "components",
-            argv.componentName
-          );
+          case componentType.choices[1]:
+            var basePage = path.join(
+              __dirname,
+              "/templates/common/func-comp.txt"
+            );
+            break;
 
-          createComponent(argv, componentTargetPage, basePage);
-          break;
+          default:
+            break;
+        }
 
-        case componentDest.choices[1]:
-          const componentTargetComponent = path.resolve(
-            process.cwd(),
-            componentDest.choices[1],
-            argv.componentName
-          );
+        let componentDestAnswer = await inquirer.prompt(componentDest);
 
-          createComponent(argv, componentTargetComponent, basePage);
-          break;
+        switch (componentDestAnswer.componentDest) {
+          case componentDest.choices[0]:
+            let componentPageDestAnswer = await inquirer.prompt(
+              componentPageDest
+            );
 
-        default:
-          break;
+            if (
+              !fs.pathExistsSync(
+                path.resolve(
+                  process.cwd(),
+                  componentDest.choices[0],
+                  componentPageDestAnswer.componentPageDest,
+                  "components"
+                )
+              )
+            ) {
+              fs.mkdirSync(
+                path.resolve(
+                  process.cwd(),
+                  componentDest.choices[0],
+                  componentPageDestAnswer.componentPageDest,
+                  "components"
+                )
+              );
+            }
+
+            const componentTargetPage = path.resolve(
+              process.cwd(),
+              componentDest.choices[0],
+              componentPageDestAnswer.componentPageDest,
+              "components",
+              argv.componentName
+            );
+
+            createComponent(argv, componentTargetPage, basePage);
+            break;
+
+          case componentDest.choices[1]:
+            const componentTargetComponent = path.resolve(
+              process.cwd(),
+              componentDest.choices[1],
+              argv.componentName
+            );
+
+            createComponent(argv, componentTargetComponent, basePage);
+            break;
+
+          default:
+            break;
+        }
+      } else {
+        console.log("This is NOT a Porsea Project!");
       }
     })();
   })
