@@ -1,7 +1,7 @@
 import React from "react";
 
-const ComponentName = () => (
+const {{ ComponentName }} = () => (
 
 );
 
-export default ComponentName;
+export default {{ ComponentName }};

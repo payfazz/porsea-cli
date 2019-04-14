@@ -1,9 +1,9 @@
 import React from "react";
 
-class pageName extends React.Component {
+class {{ PageName }} extends React.Component {
   static navigationOptions() {
     return {
-      path: "/pagePath"
+      path: "/{{ PagePath }}"
     };
   }
 
@@ -12,4 +12,4 @@ class pageName extends React.Component {
   }
 }
 
-export default pageName;
+export default {{ PageName }};

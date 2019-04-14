@@ -11,6 +11,8 @@
   "author": "Cashfazz",
   "license": "MIT",
   "dependencies": {
+    "fs-extra": "^7.0.1",
+    "inquirer": "^6.2.2",
     "yargs": "^13.2.2"
   }
 }

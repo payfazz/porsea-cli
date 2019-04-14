@@ -17,8 +17,8 @@ const createPage = argv => {
   fs.readFile(baseTemplatePagePath, (_, data) => {
     let replacePageName = data
       .toString()
-      .replace(/pageName/g, capitalizeFirstLetter(pageName))
-      .replace(/pagePath/g, pageName);
+      .replace(/{{ PageName }}/g, capitalizeFirstLetter(pageName))
+      .replace(/{{ PagePath }}/g, pageName);
     fs.writeFileSync(pagesTargetPath + "/index.js", replacePageName);
   });
 };
