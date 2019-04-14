@@ -29,13 +29,13 @@ var componentPageDest = {
   type: "list",
   name: "componentPageDest",
   message: "Create component in page: ",
-  choices: fs
-    .readdirSync(path.resolve(process.cwd(), "src/pages"))
-    .filter(folder =>
+  choices: async () => {
+    fs.readdirSync(path.resolve(process.cwd(), "src/pages")).filter(folder =>
       fs
         .lstatSync(path.resolve(process.cwd(), "src/pages", folder))
         .isDirectory()
-    )
+    );
+  }
 };
 
 const argv = yargs
