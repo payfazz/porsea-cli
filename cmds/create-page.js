@@ -3,32 +3,38 @@ const path = require("path");
 const { capitalizeFirstLetter } = require("../cmds/utils/helpers");
 
 const createPage = argv => {
-  if (
-    fs.existsSync(path.resolve(process.cwd(), "porsea.config.js")) &&
-    fs.readJSONSync(path.resolve(process.cwd(), "package.json")).dependencies
-      .porsea
-  ) {
+  const isPorseaConfigExists = fs.existsSync(
+    path.resolve(process.cwd(), "porsea.config.js")
+  );
+  const isPorseaDependencyExists = fs.readJSONSync(
+    path.resolve(process.cwd(), "package.json")
+  ).dependencies.porsea;
+
+  if (isPorseaConfigExists && isPorseaDependencyExists) {
     const { pageName } = argv;
-    const pagesTargetPath = `${process.cwd()}/src/pages/${pageName}`;
+    const pagesTargetPath = path.resolve(process.cwd(), "src/pages", pageName);
 
     fs.mkdirSync(pagesTargetPath);
-    console.log("Created a New Page: " + "'" + pageName + "'");
+    console.log(`Created a New Page: '${pageName}'`);
 
     const baseTemplatePagePath = path.join(
       __dirname,
       "../templates/common/page.txt"
     );
 
-    fs.readFile(baseTemplatePagePath, (_, data) => {
-      let replacePageName = data
-        .toString()
-        .replace(/{{ PageName }}/g, capitalizeFirstLetter(pageName))
-        .replace(/{{ PagePath }}/g, pageName);
-      fs.writeFileSync(pagesTargetPath + "/index.js", replacePageName);
-    });
-  } else {
-    console.log("This is NOT a Porsea Project!");
+    const templatePage = fs.readFileSync(baseTemplatePagePath);
+    const templatePageWithPageName = templatePage
+      .toString()
+      .replace(/{{ PageName }}/g, capitalizeFirstLetter(pageName))
+      .replace(/{{ PagePath }}/g, pageName);
+
+    const writeFilePath = path.resolve(pagesTargetPath, "./index.js");
+    fs.writeFileSync(writeFilePath, templatePageWithPageName);
+    return;
   }
+
+  console.log("This is NOT a Porsea Project!");
+  return;
 };
 
 module.exports = createPage;
