@@ -11,7 +11,11 @@ const path = require("path");
 const inquirer = require("inquirer");
 const { initPorsea, createPage, createComponent } = require("./cmds");
 
-if (fs.existsSync(path.resolve(process.cwd(), "porsea.config.js"))) {
+if (
+  fs.existsSync(path.resolve(process.cwd(), "porsea.config.js")) &&
+  fs.readJSONSync(path.resolve(process.cwd(), "package.json")).dependencies
+    .porsea
+) {
   var componentType = {
     type: "list",
     name: "componentType",
