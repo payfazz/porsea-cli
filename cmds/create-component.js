@@ -1,13 +1,16 @@
 const fs = require("fs-extra");
-const { capitalizeFirstLetter } = require("./utils/helpers");
+const {
+  capitalizeFirstLetter,
+  isValidPorseaProject
+} = require("./utils/helpers");
 
 const createComponent = (argv, componentTargetPath, basePath) => {
   const { componentName } = argv;
 
   fs.mkdirSync(componentTargetPath);
-  console.log("Created a New Component: " + "'" + componentName + "'");
+  console.log(`Created a New Component: '${componentName}'`);
 
-  fs.readFile(basePath, (_, data) => {
+  fs.readFileSync(basePath, (_, data) => {
     let replaceComponentName = data
       .toString()
       .replace(/{{ ComponentName }}/g, capitalizeFirstLetter(componentName));
@@ -15,4 +18,4 @@ const createComponent = (argv, componentTargetPath, basePath) => {
   });
 };
 
-module.exports = createComponent;
+module.exports = isValidPorseaProject(createComponent);
