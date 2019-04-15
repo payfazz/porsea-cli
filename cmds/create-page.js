@@ -3,7 +3,11 @@ const path = require("path");
 const { capitalizeFirstLetter } = require("../cmds/utils/helpers");
 
 const createPage = argv => {
-  if (fs.existsSync(path.resolve(process.cwd(), "porsea.config.js"))) {
+  if (
+    fs.existsSync(path.resolve(process.cwd(), "porsea.config.js")) &&
+    fs.readJSONSync(path.resolve(process.cwd(), "package.json")).dependencies
+      .porsea
+  ) {
     const { pageName } = argv;
     const pagesTargetPath = `${process.cwd()}/src/pages/${pageName}`;
 
