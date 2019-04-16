@@ -25,7 +25,6 @@ const createPage = argv => {
 
   const writeFilePath = path.resolve(pagesTargetPath, "./index.js");
   fs.writeFileSync(writeFilePath, templatePageWithPageName);
-  return;
 };
 
 module.exports = isValidPorseaProject(createPage);

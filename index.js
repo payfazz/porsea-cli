@@ -9,40 +9,20 @@ const yargs = require("yargs");
 const fs = require("fs-extra");
 const path = require("path");
 const inquirer = require("inquirer");
-const { initPorsea, createPage, createComponent } = require("./cmds");
-
-if (
-  fs.existsSync(path.resolve(process.cwd(), "porsea.config.js")) &&
-  fs.readJSONSync(path.resolve(process.cwd(), "package.json")).dependencies
-    .porsea
-) {
-  var componentType = {
-    type: "list",
-    name: "componentType",
-    message: "Type of Component: ",
-    choices: ["Class Component", "Functional Component"]
-  };
-
-  var componentDest = {
-    type: "list",
-    name: "componentDest",
-    message: "Create component in folder: ",
-    choices: ["src/pages", "src/components"]
-  };
-
-  var componentPageDest = {
-    type: "list",
-    name: "componentPageDest",
-    message: "Create component in page: ",
-    choices: fs
-      .readdirSync(path.resolve(process.cwd(), "src/pages"))
-      .filter(folder =>
-        fs
-          .lstatSync(path.resolve(process.cwd(), "src/pages", folder))
-          .isDirectory()
-      )
-  };
-}
+const {
+  initPorsea,
+  createPage,
+  createComponent,
+  promptComponentType,
+  promptDestination,
+  promptPageDestination
+} = require("./cmds");
+const {
+  componentDestinations: {
+    choices: [page]
+  }
+} = require("./cmds/utils/choices");
+// const { isValidPorseaProject } = require("../cmds/utils/helpers");
 
 const argv = yargs
   .command(
@@ -70,83 +50,26 @@ const argv = yargs
       describe: "The name of new component."
     });
     (async () => {
-      if (fs.existsSync(path.resolve(process.cwd(), "porsea.config.js"))) {
-        let componentTypeAnswer = await inquirer.prompt(componentType);
+      const type = await promptComponentType();
+      const destination = await promptDestination();
+      if (destination == page) {
+        const pageDestination = await promptPageDestination();
+        createComponent({
+          name: argv.componentName,
+          type,
+          destination: `${destination}/${pageDestination}/components`,
+          isInPage: true
+        });
 
-        switch (componentTypeAnswer.componentType) {
-          case componentType.choices[0]:
-            var basePage = path.join(
-              __dirname,
-              "/templates/common/class-comp.txt"
-            );
-            break;
-
-          case componentType.choices[1]:
-            var basePage = path.join(
-              __dirname,
-              "/templates/common/func-comp.txt"
-            );
-            break;
-
-          default:
-            break;
-        }
-
-        let componentDestAnswer = await inquirer.prompt(componentDest);
-
-        switch (componentDestAnswer.componentDest) {
-          case componentDest.choices[0]:
-            let componentPageDestAnswer = await inquirer.prompt(
-              componentPageDest
-            );
-
-            if (
-              !fs.pathExistsSync(
-                path.resolve(
-                  process.cwd(),
-                  componentDest.choices[0],
-                  componentPageDestAnswer.componentPageDest,
-                  "components"
-                )
-              )
-            ) {
-              fs.mkdirSync(
-                path.resolve(
-                  process.cwd(),
-                  componentDest.choices[0],
-                  componentPageDestAnswer.componentPageDest,
-                  "components"
-                )
-              );
-            }
-
-            const componentTargetPage = path.resolve(
-              process.cwd(),
-              componentDest.choices[0],
-              componentPageDestAnswer.componentPageDest,
-              "components",
-              argv.componentName
-            );
-
-            createComponent(argv, componentTargetPage, basePage);
-            break;
-
-          case componentDest.choices[1]:
-            const componentTargetComponent = path.resolve(
-              process.cwd(),
-              componentDest.choices[1],
-              argv.componentName
-            );
-
-            createComponent(argv, componentTargetComponent, basePage);
-            break;
-
-          default:
-            break;
-        }
-      } else {
-        console.log("This is NOT a Porsea Project!");
+        return;
       }
+
+      createComponent({
+        name: argv.componentName,
+        type,
+        destination,
+        isInPage: false
+      });
     })();
   })
   .demandCommand(1, "")
