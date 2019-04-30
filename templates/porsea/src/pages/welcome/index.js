@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MyComponent from "./components/my-component";
 
-class App extends React.Component {
+class WelcomePage extends React.Component {
   static navigationOptions() {
     return {
       path: "/",
@@ -18,4 +18,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default WelcomePage;
